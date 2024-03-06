@@ -1,10 +1,15 @@
 import { addTodo } from "api/todos";
 import React, { useRef } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Layout } from "./Layout";
 
 export const TodoForm = () => {
-  const mutation = useMutation(addTodo);
+  const queryClient = useQueryClient();
+  const mutation = useMutation(addTodo, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+    }
+  });
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLInputElement>(null);
 
