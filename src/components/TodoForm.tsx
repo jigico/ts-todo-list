@@ -1,9 +1,12 @@
 import { addTodo } from "api/todos";
-import React from "react";
+import React, { useRef } from "react";
 import { useMutation } from "react-query";
+import { Layout } from "./Layout";
 
 export const TodoForm = () => {
   const mutation = useMutation(addTodo);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLInputElement>(null);
 
   //todo 추가
   const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -15,10 +18,12 @@ export const TodoForm = () => {
 
     if (!target.title.value.trim()) {
       alert("제목을 입력해주세요.");
+      titleRef.current?.focus();
       return;
     }
     if (!target.content.value.trim()) {
       alert("내용을 입력해주세요.");
+      contentRef.current?.focus();
       return;
     }
 
@@ -32,12 +37,14 @@ export const TodoForm = () => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <label htmlFor="title">제목</label>
-      <input type="text" id="title" name="title" placeholder="제목을 입력해주세요." />
-      <label htmlFor="content">내용</label>
-      <input type="text" id="content" name="content" placeholder="내용을 입력해주세요." />
-      <button>추가</button>
-    </form>
+    <Layout>
+      <form onSubmit={submitHandler}>
+        <label htmlFor="title">제목</label>
+        <input type="text" id="title" name="title" ref={titleRef} placeholder="제목을 입력해주세요." />
+        <label htmlFor="content">내용</label>
+        <input type="text" id="content" name="content" ref={contentRef} placeholder="내용을 입력해주세요." />
+        <button>추가</button>
+      </form>
+    </Layout>
   );
 };
