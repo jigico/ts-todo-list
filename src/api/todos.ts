@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 //todo 추가
 export const addTodo = async (newTodo: { title: string; content: string; isDone: boolean }) => {
@@ -23,7 +23,7 @@ export const getTodos = async (): Promise<Todo[] | undefined> => {
 };
 
 //todo 완료 여부 변경
-export const toggleTodoDone = async (id: string, isDone: boolean) => {
+export const toggleTodoDone = async ({ id, isDone }: { id: string; isDone: boolean }) => {
   return axios.patch(`${process.env.REACT_APP_JSON_SERVER_URL}/todos/${id}`, { isDone });
 };
 
