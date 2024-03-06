@@ -1,6 +1,7 @@
 import { deleteTodo, getTodos, toggleTodoDone } from "api/todos";
 import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { BtnBlackF, BtnBlackS, ButtonArea, ContentStyle, TodoItem, TodoListContainer, TodoListWrap, TodoTitle, TotoListTitle } from "./TodoListStyle";
 
 type IsDone = {
   isDone: boolean;
@@ -42,24 +43,24 @@ export const TodoList = ({ isDone }: IsDone) => {
   }
 
   return (
-    <>
-      <h2>{isDone ? "🎉완료한 일" : "🔥해야할 일"}</h2>
-      <ul>
+    <TodoListContainer>
+      <TotoListTitle>{isDone ? "🎉완료한 일" : "🔥해야할 일"}</TotoListTitle>
+      <TodoListWrap>
         {data
           ?.filter((todo: Todo) => todo.isDone === isDone)
           .map((todo: Todo) => {
             return (
-              <li key={todo.id}>
-                {todo.title}
-                <p>{todo.content}</p>
-                <div>
-                  <button onClick={() => toggleDone(todo.id, !todo.isDone)}>{todo.isDone ? "취소" : "완료"}</button>
-                  <button onClick={() => deleteTodoHandler(todo.id)}>삭제</button>
-                </div>
-              </li>
+              <TodoItem key={todo.id}>
+                <TodoTitle>{todo.title}</TodoTitle>
+                <ContentStyle>{todo.content}</ContentStyle>
+                <ButtonArea>
+                  <BtnBlackF onClick={() => toggleDone(todo.id, !todo.isDone)}>{todo.isDone ? "취소" : "완료"}</BtnBlackF>
+                  <BtnBlackS onClick={() => deleteTodoHandler(todo.id)}>삭제</BtnBlackS>
+                </ButtonArea>
+              </TodoItem>
             );
           })}
-      </ul>
-    </>
+      </TodoListWrap>
+    </TodoListContainer>
   );
 };
