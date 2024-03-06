@@ -1,4 +1,4 @@
-import { deleteTodo, getTodos } from "api/todos";
+import { deleteTodo, getTodos, toggleTodoDone } from "api/todos";
 import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
@@ -17,6 +17,12 @@ export const TodoList = ({ isDone }: IsDone) => {
     }
   });
 
+  const patchMutation = useMutation(toggleTodoDone, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+    }
+  });
+
   //todo 삭제
   const deleteTodoHandler = (id: string) => {
     deleteMutation.mutate(id);
@@ -24,7 +30,7 @@ export const TodoList = ({ isDone }: IsDone) => {
 
   //todo 완료 여부 변경
   const toggleDone = (id: string, isDone: boolean): void => {
-    // patchMutation.mutate(id, isDone);
+    patchMutation.mutate({ id, isDone });
   };
 
   if (isError) {
@@ -47,7 +53,7 @@ export const TodoList = ({ isDone }: IsDone) => {
                 {todo.title}
                 <p>{todo.content}</p>
                 <div>
-                  {todo.isDone ? <button onClick={() => toggleDone(todo.id, todo.isDone)}>취소</button> : <button>완료</button>}
+                  <button onClick={() => toggleDone(todo.id, !todo.isDone)}>{todo.isDone ? "취소" : "완료"}</button>
                   <button onClick={() => deleteTodoHandler(todo.id)}>삭제</button>
                 </div>
               </li>
