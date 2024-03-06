@@ -17,6 +17,7 @@ export const TodoForm = () => {
   //todo 추가
   const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    const form = e.target as HTMLFormElement;
     const target = e.target as typeof e.target & {
       title: { value: string };
       content: { value: string };
@@ -40,6 +41,7 @@ export const TodoForm = () => {
     };
 
     mutation.mutate(newTodo);
+    form.reset();
   };
 
   return (
