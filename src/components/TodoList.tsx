@@ -44,7 +44,7 @@ export const TodoList = ({ isDone }: IsDone) => {
   }
 
   if (isLoading) {
-    return <div>로딩중</div>;
+    return <TodoListContainer>로딩중</TodoListContainer>;
   }
 
   return (
