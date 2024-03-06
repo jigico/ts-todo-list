@@ -26,7 +26,12 @@ export const TodoList = ({ isDone }: IsDone) => {
 
   //todo 삭제
   const deleteTodoHandler = (id: string) => {
-    deleteMutation.mutate(id);
+    if (window.confirm("삭제할까요?")) {
+      deleteMutation.mutate(id);
+      alert("삭제를 완료했습니다.");
+    } else {
+      alert("삭제를 취소했습니다.");
+    }
   };
 
   //todo 완료 여부 변경
