@@ -42,14 +42,12 @@ export const TodoForm = () => {
   };
 
   return (
-    <Layout>
-      <form onSubmit={submitHandler}>
-        <label htmlFor="title">제목</label>
-        <input type="text" id="title" name="title" ref={titleRef} placeholder="제목을 입력해주세요." />
-        <label htmlFor="content">내용</label>
-        <input type="text" id="content" name="content" ref={contentRef} placeholder="내용을 입력해주세요." />
-        <button>추가</button>
-      </form>
-    </Layout>
+    <form onSubmit={submitHandler}>
+      <label htmlFor="title">제목</label>
+      <input type="text" id="title" name="title" ref={titleRef} placeholder="제목을 입력해주세요." />
+      <label htmlFor="content">내용</label>
+      <input type="text" id="content" name="content" ref={contentRef} placeholder="내용을 입력해주세요." />
+      <button>추가</button>
+    </form>
   );
 };
