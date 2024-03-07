@@ -2,8 +2,11 @@
 
 ## 프로젝트 소개
 - react + typescript를 활용하여 todo list를 구현하는 프로젝트 입니다.
-- 개발 기간 : 2024. 03.05 ~ 2024.03.06
+- 개발 기간 : branch level5 - 2024. 03.05 ~ 2024.03.06 // branch level6 - 2024.03.08
 - 배포 링크 [**바로가기**](https://ts-todo-list-self.vercel.app/)
+- 브랜치 정보
+  - level5 : react-query v3
+  - level6 : tanstack-query v5로 리팩토링
 
 </br>
 
