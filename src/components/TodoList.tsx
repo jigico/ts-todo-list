@@ -10,17 +10,21 @@ type IsDone = {
 type Todo = { id: string; title: string; content: string; isDone: boolean };
 
 export const TodoList = ({ isDone }: IsDone) => {
-  const { data, isLoading, isError } = useQuery("todos", getTodos);
+  const { data, isLoading, isError } = useQuery({ queryKey: ["todos"], queryFn: getTodos });
   const queryClient = useQueryClient();
-  const deleteMutation = useMutation(deleteTodo, {
+  const deleteMutation = useMutation({
+    mutationFn: deleteTodo,
+    mutationKey: ["todos"],
     onSuccess: () => {
-      queryClient.invalidateQueries("todos");
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     }
   });
 
-  const patchMutation = useMutation(toggleTodoDone, {
+  const patchMutation = useMutation({
+    mutationFn: toggleTodoDone,
+    mutationKey: ["todos"],
     onSuccess: () => {
-      queryClient.invalidateQueries("todos");
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     }
   });
 
