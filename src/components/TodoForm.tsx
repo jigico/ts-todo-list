@@ -6,9 +6,11 @@ import { BtnBlackF } from "./TodoListStyle";
 
 export const TodoForm = () => {
   const queryClient = useQueryClient();
-  const mutation = useMutation(addTodo, {
+  const mutation = useMutation({
+    mutationFn: addTodo,
+    mutationKey: ["todos"],
     onSuccess: () => {
-      queryClient.invalidateQueries("todos");
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     }
   });
   const titleRef = useRef<HTMLInputElement>(null);
@@ -18,7 +20,8 @@ export const TodoForm = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    const target = e.target as typeof e.target & { //'as' 타입 단언 - e.target의 타입이면서 title과 content 속성을 가진 타입임을 명시.
+    const target = e.target as typeof e.target & {
+      //'as' 타입 단언 - e.target의 타입이면서 title과 content 속성을 가진 타입임을 명시.
       title: { value: string };
       content: { value: string };
     };
