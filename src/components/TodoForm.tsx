@@ -18,14 +18,14 @@ export const TodoForm = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    const target = e.target as typeof e.target & {
+    const target = e.target as typeof e.target & { //'as' 타입 단언 - e.target의 타입이면서 title과 content 속성을 가진 타입임을 명시.
       title: { value: string };
       content: { value: string };
     };
 
     if (!target.title.value.trim()) {
       alert("제목을 입력해주세요.");
-      titleRef.current?.focus();
+      titleRef.current?.focus(); //옵셔널 체이닝(?.) - titleRef는 처음에 null 이기 때문에 titleRef.current 값이 있으면 focus 실행.
       return;
     }
     if (!target.content.value.trim()) {
