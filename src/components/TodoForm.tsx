@@ -1,6 +1,6 @@
 import { addTodo } from "api/todos";
 import React, { useRef } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FormContainer, InputStyle } from "./TodoFormStyle";
 import { BtnBlackF } from "./TodoListStyle";
 

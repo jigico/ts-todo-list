@@ -1,5 +1,5 @@
 import { deleteTodo, toggleTodoDone } from "api/todos";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const QUERY_KEY_TODO = "todos";
 
