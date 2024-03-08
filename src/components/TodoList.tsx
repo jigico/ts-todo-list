@@ -1,7 +1,8 @@
-import { deleteTodo, getTodos, toggleTodoDone } from "api/todos";
+import { getTodos } from "api/todos";
 import React from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { BtnBlackF, BtnBlackS, ButtonArea, ContentStyle, TodoItem, TodoListContainer, TodoListWrap, TodoTitle, TotoListTitle } from "./TodoListStyle";
+import { QUERY_KEY_TODO, useTodoQuery } from "hooks/useCustomHook";
 
 type IsDone = {
   isDone: boolean;
@@ -10,23 +11,8 @@ type IsDone = {
 type Todo = { id: string; title: string; content: string; isDone: boolean };
 
 export const TodoList = ({ isDone }: IsDone) => {
-  const { data, isLoading, isError } = useQuery({ queryKey: ["todos"], queryFn: getTodos });
-  const queryClient = useQueryClient();
-  const deleteMutation = useMutation({
-    mutationFn: deleteTodo,
-    mutationKey: ["todos"],
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-    }
-  });
-
-  const patchMutation = useMutation({
-    mutationFn: toggleTodoDone,
-    mutationKey: ["todos"],
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
-    }
-  });
+  const { data, isLoading, isError } = useQuery({ queryKey: [QUERY_KEY_TODO], queryFn: getTodos });
+  const { deleteMutation, patchMutation } = useTodoQuery();
 
   //todo 삭제
   const deleteTodoHandler = (id: string) => {
